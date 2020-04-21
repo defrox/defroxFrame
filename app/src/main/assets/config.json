@@ -315,17 +315,16 @@
     ]
   },
   {
-    "title":"Wordpress Rest",
+    "title":"Ken Burns",
     "drawable":"",
     "submenu":"Other",
     "iap":false,
     "tabs":[
       {
-        "title":"WP Rest",
-        "provider":"wordpress",
+        "title":"Ken Burns Image",
+        "provider":"custom",
         "arguments":[
-          "https://wordpress.org/news/wp-json/wp/v2/",
-          ""
+          "com.defrox.defroxframe.sliderimage.KenBurnsActivity", "activity"
         ]
       }
     ]
@@ -346,7 +345,7 @@
     ]
   },
   {
-    "title":"Custom",
+    "title":"Slider",
     "drawable":"",
     "submenu":"Other",
     "iap":false,
@@ -355,7 +354,7 @@
         "title":"",
         "provider":"custom",
         "arguments":[
-          "com.defrox.defroxframe.sliderimage.FullScreenImageActivity", "activity"
+          "com.defrox.defroxframe.sliderimage.SliderImageActivity", "activity"
         ]
       }
     ]

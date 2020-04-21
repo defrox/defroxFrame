@@ -301,4 +301,8 @@
     <string name="dialog_internet_description">You seem to have no internet connection, this app requires internet to get the latest content.\n\nYou can continue to see your favorite/offline items!</string>
     <string name="title_activity_woo_commerce_login">Sign in</string>
 
+    <string name="title_activity_slider_image">SliderImageActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
 </resources>
