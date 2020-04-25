@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="androidx.lifecycle.LiveData" />
+        <variable
+            name="currentWeather"
+            type="com.defrox.defroxframe.sliderimage.utils.CurrentWeatherModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/info_overlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/spacing_xxl"
+            android:layout_marginBottom="@dimen/spacing_xxl"
+            android:background="@drawable/rounded_weather_background"
+            android:orientation="horizontal"
+            android:padding="@dimen/spacing_l"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center|fill_horizontal|fill_vertical"
+                android:orientation="vertical">
+
+                <TextClock
+                    android:id="@+id/slider_text_clock"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:format24Hour="HH:mm:ss"
+                    android:gravity="top|end"
+                    android:textColor="@color/grey_lighter"
+                    android:textSize="@dimen/textsize_xxl" />
+
+                <TextClock
+                    android:id="@+id/slider_text_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:format24Hour="dd/MM/yyyy"
+                    android:gravity="bottom|end"
+                    android:textColor="@color/grey_lighter"
+                    android:textSize="@dimen/textsize_xl" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/spacing_m"
+                android:background="@color/grey_lighter" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/spacing_m"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/slider_weather_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/weather_icons"
+                    android:gravity="center"
+                    android:text="@string/wi_cloudy_windy"
+                    android:textColor="@color/grey_lighter"
+                    android:textSize="@dimen/textsize_xxxl" />
+
+            </LinearLayout>
+
+    <!--        <FrameLayout-->
+    <!--            android:layout_width="1dp"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:layout_margin="@dimen/spacing_m"/>-->
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center|fill_horizontal|fill_vertical"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top|center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/slider_temperature_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/weather_icons"
+                        android:gravity="center"
+                        android:text="@string/wi_thermometer"
+                        android:textColor="@color/grey_lighter"
+                        android:textSize="@dimen/textsize_s" />
+
+                    <TextView
+                        android:id="@+id/slider_temperature_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/dummy_temperature"
+                        android:textColor="@color/grey_lighter"
+                        android:layout_marginStart="@dimen/spacing_s"
+                        android:textSize="@dimen/textsize_s"/>
+
+                    <TextView
+                        android:id="@+id/slider_temperature_scale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/weather_icons"
+                        android:gravity="center"
+                        android:text="@string/wi_celsius"
+                        android:textColor="@color/grey_lighter"
+                        android:textSize="@dimen/textsize_s" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom|center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/slider_humidity_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/dummy_humidity"
+                        android:textColor="@color/grey_lighter"
+                        android:layout_marginEnd="@dimen/spacing_s"
+                        android:textSize="@dimen/textsize_s"/>
+
+                    <TextView
+                        android:id="@+id/slider_humidity_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/weather_icons"
+                        android:gravity="center"
+                        android:text="@string/wi_humidity"
+                        android:textColor="@color/grey_lighter"
+                        android:textSize="@dimen/textsize_s" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

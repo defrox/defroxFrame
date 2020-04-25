@@ -36,6 +36,7 @@
     <dimen name="textsize_l">18sp</dimen>
     <dimen name="textsize_xl">20sp</dimen>
     <dimen name="textsize_xxl">25sp</dimen>
+    <dimen name="textsize_xxxl">36sp</dimen>
 
     <!-- DetailLayouts -->
     <dimen name="detail_margin">0dp</dimen>

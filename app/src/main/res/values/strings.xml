@@ -37,6 +37,8 @@
     <string name="onesignal_app_id">930b4e2f-db42-451a-892b-30c347e77d44</string>
     <string name="onesignal_google_project_number">387715857518</string>
 
+    <string name="openweathermap_api_key">0fa2340eb8882e981cd575a39da6ee33</string>
+
     <string name="privacy_policy_url"></string>
 
     <!-- About text, you can use basic html, stay between [ and ] -->
@@ -304,5 +306,8 @@
     <string name="title_activity_slider_image">SliderImageActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="dummy_temperature">--</string>
+    <string name="dummy_humidity">--</string>
+    <string name="dummy_content2">METEO</string>
 
 </resources>

@@ -4,8 +4,9 @@
     android:hardwareAccelerated="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:background="@color/black"
     android:fitsSystemWindows="true"
+    android:id="@+id/main_frame"
     tools:context=".sliderimage.SliderImageActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -21,46 +22,26 @@
         android:id="@+id/container_main_images"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
-
-        <!--<FrameLayout
-            android:id="@+id/container_main_images"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"/>-->
-
-        <LinearLayout
-            android:id="@+id/fullscreen_content_controls"
-            style="?metaButtonBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:background="@color/black_overlay"
-            android:orientation="horizontal"
-            tools:ignore="UselessParent">
-
-            <Button
-                android:id="@+id/dummy_button"
-                style="?metaButtonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/dummy_button" />
-
-        </LinearLayout>
-    </FrameLayout>
+        android:background="@color/black"
+        android:fitsSystemWindows="true" />
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
-    <View
-        android:id="@+id/fullscreen_content"
+
+    <FrameLayout
+        android:id="@+id/clock_weather_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!--<TextView
+        android:id="@+id/fullscreen_content2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:keepScreenOn="true"
-        android:text="@string/dummy_content"
+        android:text="@string/dummy_content2"
         android:textColor="#33b5e5"
         android:textSize="50sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"/>-->
 
 </FrameLayout>

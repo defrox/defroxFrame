@@ -8,6 +8,8 @@ import android.view.Window
 import android.view.WindowManager
 import com.defrox.defroxframe.R
 import com.defrox.defroxframe.sliderimage.logic.SliderImage
+import com.defrox.defroxframe.sliderimage.ui.ClockWeatherFragment
+import com.defrox.defroxframe.sliderimage.utils.LocalImages
 import kotlinx.android.synthetic.main.activity_slider_image.*
 
 /**
@@ -22,7 +24,7 @@ class SliderImageActivity : AppCompatActivity() {
         // Note that some of these constants are new as of API 16 (Jelly Bean)
         // and API 19 (KitKat). It is safe to use them, as they are inlined
         // at compile-time and do nothing on earlier devices.
-        fullscreen_content.systemUiVisibility =
+        main_frame.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_LOW_PROFILE or
                         View.SYSTEM_UI_FLAG_FULLSCREEN or
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
@@ -33,10 +35,11 @@ class SliderImageActivity : AppCompatActivity() {
     private val mShowPart2Runnable = Runnable {
         // Delayed display of UI elements
         supportActionBar?.show()
-        fullscreen_content_controls.visibility = View.VISIBLE
+        clock_weather_fragment.visibility = View.VISIBLE
     }
     private var mVisible: Boolean = false
     private val mHideRunnable = Runnable { hide() }
+    private val mShowRunnable = Runnable { show() }
 
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
@@ -86,12 +89,24 @@ class SliderImageActivity : AppCompatActivity() {
         // Add image URLs to sliderImage
         slider.setItems(images)
 
+        // Instantiate local image loader
+        val localImages = LocalImages(this)
+        val localImagesList = localImages.getAllImagesList()
+        slider.setItems(localImagesList)
+
         // Add timer to sliderImage
-        slider.addTimerToSlide(2000)
+        slider.addTimerToSlide(60000)
 
 
         // Add slider component to a container
          container_main_images.addView(slider)
+
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                    .beginTransaction()
+                    .add(R.id.clock_weather_fragment, ClockWeatherFragment.newInstance(), "ClockWeather")
+                    .commit()
+        }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -100,7 +115,7 @@ class SliderImageActivity : AppCompatActivity() {
         // Trigger the initial hide() shortly after the activity has been
         // created, to briefly hint to the user that UI controls
         // are available.
-        delayedHide(100)
+        delayedShow(500)
     }
 
     private fun toggle() {
@@ -114,7 +129,7 @@ class SliderImageActivity : AppCompatActivity() {
     private fun hide() {
         // Hide UI first
         supportActionBar?.hide()
-        fullscreen_content_controls.visibility = View.GONE
+        clock_weather_fragment.visibility = View.GONE
         mVisible = false
 
         // Schedule a runnable to remove the status and navigation bar after a delay
@@ -124,7 +139,7 @@ class SliderImageActivity : AppCompatActivity() {
 
     private fun show() {
         // Show the system bar
-        fullscreen_content.systemUiVisibility =
+        clock_weather_fragment.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
                         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         mVisible = true
@@ -141,6 +156,15 @@ class SliderImageActivity : AppCompatActivity() {
     private fun delayedHide(delayMillis: Int) {
         mHideHandler.removeCallbacks(mHideRunnable)
         mHideHandler.postDelayed(mHideRunnable, delayMillis.toLong())
+    }
+
+    /**
+     * Schedules a call to show() in [delayMillis], canceling any
+     * previously scheduled calls.
+     */
+    private fun delayedShow(delayMillis: Int) {
+        mHideHandler.removeCallbacks(mShowRunnable)
+        mHideHandler.postDelayed(mShowRunnable, delayMillis.toLong())
     }
 
     companion object {

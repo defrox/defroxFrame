@@ -3,25 +3,34 @@ package com.defrox.defroxframe.sliderimage.adapters
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.viewpager.widget.PagerAdapter
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.URLUtil
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.viewpager.widget.PagerAdapter
+import com.defrox.defroxframe.attachmentviewer.loader.PicassoImageLoader
 import com.defrox.defroxframe.sliderimage.activities.FullScreenImageActivity
+import com.defrox.defroxframe.sliderimage.utils.ImageDownloader
 import com.defrox.defroxframe.sliderimage.zoomable.DoubleTapGestureListener
 import com.defrox.defroxframe.sliderimage.zoomable.ZoomableDraweeView
 import com.facebook.drawee.backends.pipeline.Fresco
-import com.facebook.drawee.view.SimpleDraweeView
+import com.flaviofaria.kenburnsview.KenBurnsView
+import com.flaviofaria.kenburnsview.Transition
+import com.squareup.picasso.Picasso
+
 
 /**
  * Created by Ivan on 16/08/18.
  */
 class ViewPagerAdapter(val context: Context, var items: List<String>): PagerAdapter() {
 
+    private val imageDownloader = ImageDownloader()
+
     init {
-        Fresco.initialize(context.applicationContext)
+        imageDownloader.setMode(ImageDownloader.Mode.CORRECT)
+        // Fresco.initialize(context.applicationContext)
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
@@ -39,10 +48,15 @@ class ViewPagerAdapter(val context: Context, var items: List<String>): PagerAdap
             container.addView(item)
             item
         } else {
-            val item = SimpleDraweeView(context)
+            // val item = SliderImageView(context)
+            val item = KenBurnsView(context)
+            // val item = SimpleDraweeView(context)
             item.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT)
-            item.setImageURI(items[position])
+            //val imageUri = Uri.parse(items[position])
+            loadKenBurnsView(position, item, context)
+            //item.setImageDrawable(imageUri)
+            // item.setImageURI(items[position])
             item.scaleType = ImageView.ScaleType.CENTER
 
             item.setOnClickListener {
@@ -51,6 +65,17 @@ class ViewPagerAdapter(val context: Context, var items: List<String>): PagerAdap
                 intent.putExtra("position", position)
                 context.startActivity(intent)
             }
+
+            item.setTransitionListener(object : KenBurnsView.TransitionListener {
+                override fun onTransitionStart(transition: Transition) {
+                    Toast.makeText(context, "Started: " + getItem(position), Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onTransitionEnd(transition: Transition) {
+                    Toast.makeText(context, "Finished", Toast.LENGTH_SHORT).show()
+                }
+            })
+
 
             container.addView(item)
             item
@@ -85,4 +110,47 @@ class ViewPagerAdapter(val context: Context, var items: List<String>): PagerAdap
         this.notifyDataSetChanged()
     }
 
+    fun getItem(position: Int): String {
+        return items[position]
+    }
+
+    fun getItemId(position: Int): Int {
+        return items[position].hashCode()
+    }
+
+    fun loadKenBurnsView(position: Int, view: View?, context: Context): View {
+        var newView: View
+        if (view == null) {
+            newView = ImageView(context)
+        } else{
+            newView = view
+        }
+        val item = getItem(position)
+        if (URLUtil.isValidUrl(item)) {
+            Picasso.get().load(item).into(newView as KenBurnsView)
+            //imageDownloader.download(items[position], newView as ImageView)
+        } else {
+            Picasso.get().load(item).into(newView as KenBurnsView)
+            //newView = view as KenBurnsView
+        }
+        return newView
+    }
+
+    fun getView(position: Int, view: View?, context: Context): View {
+        var newView: View
+        if (view == null) {
+            newView = ImageView(context)
+//            newView.setPadding(6, 6, 6, 6)
+        } else{
+            newView = view
+        }
+
+        imageDownloader.download(items[position], newView as ImageView)
+
+        return newView
+    }
+
+    fun getImageDownloader(): ImageDownloader? {
+        return imageDownloader
+    }
 }

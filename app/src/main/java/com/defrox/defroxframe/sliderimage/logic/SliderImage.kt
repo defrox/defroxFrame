@@ -3,17 +3,20 @@ package com.defrox.defroxframe.sliderimage.logic
 import android.annotation.TargetApi
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.os.Handler
-import androidx.viewpager.widget.ViewPager
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import androidx.viewpager.widget.ViewPager
 import com.defrox.defroxframe.R
 import com.defrox.defroxframe.sliderimage.activities.FullScreenImageActivity
 import com.defrox.defroxframe.sliderimage.adapters.ViewPagerAdapter
 import kotlinx.android.synthetic.main.layout_slider_image.view.*
 import me.relex.circleindicator.CircleIndicator
+import java.io.File
 
 /**
  * Created by Ivan on 16/08/18.
@@ -68,6 +71,8 @@ class SliderImage : LinearLayout {
         return items
     }
 
+
+
     /**
      * Add new items "Image URLs"
      * @param items
@@ -76,7 +81,13 @@ class SliderImage : LinearLayout {
         (viewPagerSlider.adapter as? ViewPagerAdapter)?.setItemsPager(items)
         viewPagerSlider.adapter?.notifyDataSetChanged()
         this@SliderImage.items = items
-        indicator.setViewPager(viewPagerSlider)
+//        indicator.setViewPager(viewPagerSlider)
+    }
+
+    fun setItemsFolder(folder: String) {
+        val folderUri = File(Environment.getExternalStorageDirectory().toString() + folder)
+        val allFiles = folderUri.listFiles { dir: File?, name: String -> name.endsWith(".jpg") || name.endsWith(".jpeg") || name.endsWith(".png") }
+
     }
 
     /**
