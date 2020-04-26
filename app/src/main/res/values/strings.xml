@@ -156,6 +156,13 @@
     <string name="dialog_purchase_title">Content locked.</string>
     <string name="dialog_purchase">In order to view this content, you need to unlock the full version by making a one time purchase.\n\nThis will also remove advertisements throughout the app.</string>
 
+    <!-- Slider Settings -->
+    <string name="settings_slider_summary">Manage the slideshow settings</string>
+    <string name="settings_slider_title">Slideshow settings</string>
+
+    <string name="settings_slider_units_summary">Select the units for the thermometer</string>
+    <string name="settings_slider_units_title">Thermometer units</string>
+
     <!-- Wordpress -->
     <string name="wordpress_subtitle_start">"Published "</string>
     <string name="wordpress_subtitle_end">" by "</string>

@@ -1,10 +1,13 @@
 package com.defrox.defroxframe.sliderimage.ui
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import androidx.preference.Preference
+import androidx.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,7 +34,11 @@ class ClockWeatherFragment : Fragment() {
 
     private lateinit var weather: CurrentWeatherModel
     private lateinit var weatherIcons: List<WeatherIcon>
+    private lateinit var sharedPreferences: SharedPreferences
 
+    // TODO: show with delay
+    // TODO: use settings
+    // TODO: get current location
     private lateinit var mUpdateWeatherHandler: Handler
     private val mUpdateWeatherRunnable = object : Runnable {
         override fun run() {
@@ -43,6 +50,7 @@ class ClockWeatherFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         weatherIcons = DefroxHelper.getWeatherIcons(context, "weather-icons.json")
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -59,9 +67,17 @@ class ClockWeatherFragment : Fragment() {
         val iconObserver = Observer<String> { res ->
             slider_weather_icon.text = res
         }
+        val unitsObserver = Observer<String> { res ->
+            if (res == Units.IMPERIAL) {
+                slider_temperature_scale.text = getString(R.string.wi_fahrenheit)
+            } else {
+                slider_temperature_scale.text = getString(R.string.wi_celsius)
+            }
+        }
         weather.temperature.observe(viewLifecycleOwner, temperatureObserver)
         weather.humidity.observe(viewLifecycleOwner, humidityObserver)
         weather.icon.observe(viewLifecycleOwner, iconObserver)
+        weather.units.observe(viewLifecycleOwner, unitsObserver)
         mUpdateWeatherHandler = Handler(Looper.getMainLooper())
 
         return inflater.inflate(R.layout.fragment_clock_weather, container, false)
@@ -80,7 +96,13 @@ class ClockWeatherFragment : Fragment() {
 
     fun updateCurrentWeather() {
         val weatherHelper: OpenWeatherMapHelper = OpenWeatherMapHelper(getString(R.string.openweathermap_api_key))
-        weatherHelper.setUnits(Units.METRIC)
+        if (sharedPreferences.getString("settings_slider_units", null) == Units.IMPERIAL) {
+            weatherHelper.setUnits(Units.IMPERIAL)
+            weather.units.value = Units.IMPERIAL
+        } else {
+            weatherHelper.setUnits(Units.METRIC)
+            weather.units.value = Units.METRIC
+        }
         weatherHelper.setLang(Lang.SPANISH)
         val city = "Madrid"
         weatherHelper.getCurrentWeatherByCityName(city, object : CurrentWeatherCallback {
@@ -113,7 +135,7 @@ class ClockWeatherFragment : Fragment() {
     fun handleCurrentWeatherResponse(currentWeather: CurrentWeather) {
         val icon: WeatherIcon? = weatherIcons.find { it.id == currentWeather.weather[0].id.toInt() }
         val nowUtc = System.currentTimeMillis() / 1000
-        val isDay = currentWeather.sys.sunrise < nowUtc && nowUtc > currentWeather.sys.sunset
+        val isDay = currentWeather.sys.sunrise < nowUtc && nowUtc < currentWeather.sys.sunset
         weather.description.value = currentWeather.weather[0].description
         weather.temperature.value = currentWeather.main.temp.toShort().toString()
         weather.humidity.value = currentWeather.main.humidity.toShort().toString()
@@ -125,6 +147,24 @@ class ClockWeatherFragment : Fragment() {
         if (newIcon !== null) {
             weather.icon.value = newIcon
         }
+        Log.v(TAG,
+                """
+                                Coordinates: ${currentWeather.coord.lat}, ${currentWeather.coord.lon}
+                                Weather Description: ${currentWeather.weather[0].description}
+                                Weather Condition: ${currentWeather.weather[0].main}
+                                Weather Icon: ${currentWeather.weather[0].icon}
+                                Weather Code: ${currentWeather.weather[0].id}
+                                Temperature: ${currentWeather.main.temp}
+                                Humidity: ${currentWeather.main.humidity}
+                                Wind Speed: ${currentWeather.wind.speed}
+                                Time: ${currentWeather.dt}
+                                Sunrise: ${currentWeather.sys.sunrise}
+                                Sunset: ${currentWeather.sys.sunset}
+                                NowUTC: ${nowUtc}
+                                isDay: ${isDay}
+                                City, Country: ${currentWeather.name}, ${currentWeather.sys.country}
+                                """.trimIndent()
+        )
 /*        Toast.makeText(context, "Weather API: " + """
                                 Coordinates: ${currentWeather.coord.lat}, ${currentWeather.coord.lon}
                                 Weather Description: ${currentWeather.weather[0].description}

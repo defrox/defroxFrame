@@ -47,6 +47,19 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="settings_slider_category"
+        android:summary="@string/settings_slider_summary"
+        android:title="@string/settings_slider_title">
+        <ListPreference
+            android:defaultValue="METRIC"
+            android:entries="@array/units_entries"
+            android:entryValues="@array/units_values"
+            android:key="settings_slider_units"
+            android:summary="@string/settings_slider_units_summary"
+            android:title="@string/settings_slider_units_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:key="billing"
         android:summary="@string/settings_billing_summary"
         android:title="@string/settings_billing">

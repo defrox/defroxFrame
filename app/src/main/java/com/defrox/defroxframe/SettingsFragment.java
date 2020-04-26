@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.defrox.defroxframe.util.Log;
+import com.kwabenaberko.openweathermaplib.constants.Units;
 
 /**
  * This fragmnt is used to show a settings page to the user
@@ -151,6 +152,20 @@ public class SettingsFragment extends androidx.core.preference.PreferenceFragmen
 			Preference preferencedraweropen = findPreference("menuOpenOnStart");
 			preferenceScreen.removePreference(preferencedraweropen);
 		}
+
+		// slideshow
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+		Preference sliderUnits = findPreference("settings_slider_units");
+		if (sliderUnits == null) {
+			SharedPreferences.Editor editor= prefs.edit();
+			editor.putString("settings_slider_units", Units.METRIC);
+			editor.apply();
+		}
+		/*if (prefs.getString("settings_slider_units", Units.METRIC).equals(Units.METRIC)) {
+			SharedPreferences.Editor editor= prefs.edit();
+			editor.putString("settings_slider_units", Units.METRIC);
+			editor.apply();
+		}*/
 
 		// notifications
 		Preference notificationsPreference = findPreference("notifications");

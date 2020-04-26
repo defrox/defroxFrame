@@ -35,4 +35,7 @@ class CurrentWeatherModel : ViewModel() {
     val main: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
+    val units: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
 }
