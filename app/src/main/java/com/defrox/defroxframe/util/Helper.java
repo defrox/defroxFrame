@@ -53,6 +53,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Helper {
@@ -270,6 +271,20 @@ public class Helper {
         }
 
         return chaine.toString();
+    }
+
+    //Get JSON from an asset and parse it to a JSON Object.
+    public static JSONObject getJSONObjectFromAsset(Context context, String name) {
+        String data = loadJSONFromAsset(context, name);
+
+        try {
+            return new JSONObject(data);
+        } catch (Exception e) {
+            Log.e("INFO", "Error parsing JSON. Printing stacktrace now");
+            Log.printStackTrace(e);
+        }
+
+        return null;
     }
 
     //Get JSON from an url and parse it to a JSON Object.

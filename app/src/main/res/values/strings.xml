@@ -13,7 +13,7 @@
     @author Sherdle
     -->
 
-    <string name="app_name">deFrame</string>
+    <string name="app_name">defroxFrame</string>
 
     <!-- API keys -->
     <string name="twitter_api_consumer_key"></string>
@@ -304,6 +304,7 @@
     <string name="title_activity_woo_commerce_login">Sign in</string>
 
     <string name="title_activity_slider_image">SliderImageActivity</string>
+    <string name="percent_symbol">%</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="dummy_temperature">--</string>

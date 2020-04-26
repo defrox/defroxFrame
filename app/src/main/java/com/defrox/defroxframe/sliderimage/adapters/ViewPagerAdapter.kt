@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.viewpager.widget.PagerAdapter
-import com.defrox.defroxframe.attachmentviewer.loader.PicassoImageLoader
 import com.defrox.defroxframe.sliderimage.activities.FullScreenImageActivity
 import com.defrox.defroxframe.sliderimage.utils.ImageDownloader
 import com.defrox.defroxframe.sliderimage.zoomable.DoubleTapGestureListener
@@ -21,16 +20,13 @@ import com.flaviofaria.kenburnsview.Transition
 import com.squareup.picasso.Picasso
 
 
-/**
- * Created by Ivan on 16/08/18.
- */
 class ViewPagerAdapter(val context: Context, var items: List<String>): PagerAdapter() {
 
     private val imageDownloader = ImageDownloader()
 
     init {
         imageDownloader.setMode(ImageDownloader.Mode.CORRECT)
-        // Fresco.initialize(context.applicationContext)
+        Fresco.initialize(context.applicationContext)
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
@@ -48,17 +44,11 @@ class ViewPagerAdapter(val context: Context, var items: List<String>): PagerAdap
             container.addView(item)
             item
         } else {
-            // val item = SliderImageView(context)
             val item = KenBurnsView(context)
-            // val item = SimpleDraweeView(context)
             item.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT)
-            //val imageUri = Uri.parse(items[position])
             loadKenBurnsView(position, item, context)
-            //item.setImageDrawable(imageUri)
-            // item.setImageURI(items[position])
             item.scaleType = ImageView.ScaleType.CENTER
-
             item.setOnClickListener {
                 val intent = Intent(context, FullScreenImageActivity::class.java)
                 intent.putExtra("items", items.toTypedArray())
@@ -68,15 +58,13 @@ class ViewPagerAdapter(val context: Context, var items: List<String>): PagerAdap
 
             item.setTransitionListener(object : KenBurnsView.TransitionListener {
                 override fun onTransitionStart(transition: Transition) {
-                    Toast.makeText(context, "Started: " + getItem(position), Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(context, "Started: " + getItem(position), Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onTransitionEnd(transition: Transition) {
-                    Toast.makeText(context, "Finished", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(context, "Finished", Toast.LENGTH_SHORT).show()
                 }
             })
-
-
             container.addView(item)
             item
         }
@@ -86,9 +74,6 @@ class ViewPagerAdapter(val context: Context, var items: List<String>): PagerAdap
         return items.indexOf(`object`)
     }
 
-    /**
-     * Destroy unused element from view pager
-     */
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         container.removeView((`object` as View))
     }
@@ -101,10 +86,6 @@ class ViewPagerAdapter(val context: Context, var items: List<String>): PagerAdap
         return items.size
     }
 
-    /**
-     * Set new items for view pager
-     * @param items
-     */
     fun setItemsPager(items: List<String>) {
         this.items = items
         this.notifyDataSetChanged()
@@ -125,14 +106,7 @@ class ViewPagerAdapter(val context: Context, var items: List<String>): PagerAdap
         } else{
             newView = view
         }
-        val item = getItem(position)
-        if (URLUtil.isValidUrl(item)) {
-            Picasso.get().load(item).into(newView as KenBurnsView)
-            //imageDownloader.download(items[position], newView as ImageView)
-        } else {
-            Picasso.get().load(item).into(newView as KenBurnsView)
-            //newView = view as KenBurnsView
-        }
+        Picasso.get().load(getItem(position)).into(newView as KenBurnsView)
         return newView
     }
 
@@ -140,13 +114,15 @@ class ViewPagerAdapter(val context: Context, var items: List<String>): PagerAdap
         var newView: View
         if (view == null) {
             newView = ImageView(context)
-//            newView.setPadding(6, 6, 6, 6)
         } else{
             newView = view
         }
-
-        imageDownloader.download(items[position], newView as ImageView)
-
+        val item = getItem(position)
+        if (URLUtil.isValidUrl(item)) {
+            imageDownloader.download(items[position], newView as ImageView)
+        } else {
+            newView = view as ImageView
+        }
         return newView
     }
 
