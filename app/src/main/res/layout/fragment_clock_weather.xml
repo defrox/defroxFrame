@@ -63,7 +63,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_marginEnd="@dimen/spacing_m"
-                android:layout_marginStart="@dimen/spacing_m"
+                android:layout_marginStart="@dimen/spacing_l"
                 android:orientation="vertical">
 
                 <TextView
@@ -93,7 +93,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:gravity="top|start"
+                    android:gravity="top|center_horizontal"
                     android:orientation="horizontal">
 
                     <TextView
@@ -104,7 +104,7 @@
                         android:text="@string/dummy_temperature"
                         android:textColor="@color/grey_lighter"
                         android:layout_marginStart="@dimen/spacing_s"
-                        android:textSize="@dimen/textsize_s"/>
+                        android:textSize="@dimen/textsize_l"/>
 
                     <TextView
                         android:id="@+id/slider_temperature_scale"
@@ -114,18 +114,18 @@
                         android:gravity="center"
                         android:text="@string/wi_celsius"
                         android:textColor="@color/grey_lighter"
-                        android:textSize="@dimen/textsize_s" />
+                        android:textSize="@dimen/textsize_l" />
 
                     <TextView
                         android:id="@+id/slider_temperature_icon"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/textsize_m"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/weather_icons"
                         android:gravity="center"
                         android:layout_marginStart="@dimen/spacing_s"
                         android:text="@string/wi_thermometer"
                         android:textColor="@color/grey_lighter"
-                        android:textSize="@dimen/textsize_s" />
+                        android:textSize="@dimen/textsize_m" />
 
                 </LinearLayout>
 
@@ -133,7 +133,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:gravity="bottom|start"
+                    android:gravity="bottom|center_horizontal"
                     android:orientation="horizontal">
 
                     <TextView
@@ -144,7 +144,7 @@
                         android:text="@string/dummy_humidity"
                         android:textColor="@color/grey_lighter"
                         android:layout_marginStart="@dimen/spacing_s"
-                        android:textSize="@dimen/textsize_s"/>
+                        android:textSize="@dimen/textsize_l"/>
 
                     <TextView
                         android:id="@+id/slider_humidity_scale"
@@ -154,17 +154,17 @@
                         android:text="@string/percent_symbol"
                         android:textColor="@color/grey_lighter"
                         android:layout_marginEnd="@dimen/spacing_s"
-                        android:textSize="@dimen/textsize_xxs"/>
+                        android:textSize="@dimen/textsize_s"/>
 
                     <TextView
                         android:id="@+id/slider_humidity_icon"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/textsize_m"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/weather_icons"
                         android:gravity="center"
                         android:text="@string/wi_humidity"
                         android:textColor="@color/grey_lighter"
-                        android:textSize="@dimen/textsize_s" />
+                        android:textSize="@dimen/textsize_m" />
 
                 </LinearLayout>
 
