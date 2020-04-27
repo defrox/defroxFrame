@@ -136,6 +136,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
     implementation files('libs/YouTubeAndroidPlayerApi.jar')

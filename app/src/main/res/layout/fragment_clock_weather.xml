@@ -34,7 +34,8 @@
                 <TextClock
                     android:id="@+id/slider_text_clock"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:format24Hour="HH:mm:ss"
                     android:gravity="top|end"
                     android:textColor="@color/grey_lighter"
@@ -43,32 +44,34 @@
                 <TextClock
                     android:id="@+id/slider_text_date"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:format24Hour="dd/MM/yyyy"
                     android:gravity="bottom|end"
                     android:textColor="@color/grey_lighter"
                     android:textSize="@dimen/textsize_xl" />
             </LinearLayout>
 
-            <FrameLayout
+            <!--<FrameLayout
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/spacing_m"
-                android:background="@color/grey_lighter" />
+                android:background="@color/grey_lighter" />-->
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
+                android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_marginEnd="@dimen/spacing_m"
+                android:layout_marginStart="@dimen/spacing_m"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/slider_weather_icon"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:fontFamily="@font/weather_icons"
-                    android:gravity="center"
+                    android:gravity="center_horizontal|center_vertical"
                     android:text="@string/wi_cloudy_windy"
                     android:textColor="@color/grey_lighter"
                     android:textSize="@dimen/textsize_xxxl" />
@@ -81,17 +84,16 @@
     <!--            android:layout_margin="@dimen/spacing_m"/>-->
 
             <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="bottom|start"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal|center_vertical"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:gravity="top|start"
-                    android:layout_marginTop="@dimen/spacing_s"
-                    android:layout_marginEnd="@dimen/spacing_xxs"
                     android:orientation="horizontal">
 
                     <TextView
@@ -129,9 +131,9 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="bottom|end"
-                    android:layout_marginTop="@dimen/spacing_s"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="bottom|start"
                     android:orientation="horizontal">
 
                     <TextView
@@ -141,6 +143,7 @@
                         android:gravity="center"
                         android:text="@string/dummy_humidity"
                         android:textColor="@color/grey_lighter"
+                        android:layout_marginStart="@dimen/spacing_s"
                         android:textSize="@dimen/textsize_s"/>
 
                     <TextView

@@ -25,8 +25,8 @@ class ViewPagerAdapter(val context: Context, var items: List<String>): PagerAdap
     private val imageDownloader = ImageDownloader()
 
     init {
-        imageDownloader.setMode(ImageDownloader.Mode.CORRECT)
-        Fresco.initialize(context.applicationContext)
+//        imageDownloader.setMode(ImageDownloader.Mode.CORRECT)
+//        Fresco.initialize(context.applicationContext)
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {

@@ -2,7 +2,6 @@ package com.defrox.defroxframe.sliderimage.utils
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import java.io.Serializable
 
 class CurrentWeatherModel : ViewModel() {
     val description: MutableLiveData<String> by lazy {
